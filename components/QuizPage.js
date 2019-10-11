@@ -2,9 +2,16 @@ import React, {Component} from 'react'
 import {View, Text, StyleSheet, Button} from "react-native"
 import {connect} from 'react-redux'
 import {orange, red, green} from "../utils/colors"
+import {clearLocalNotification, setLocalNotification} from "../utils/notifications"
 
 
 class QuizPage extends Component {
+
+  componentDidMount() {
+    clearLocalNotification()
+      .then(setLocalNotification)
+  }
+
   static navigationOptions = ({navigation}) => (
     {title: `Quiz for ${navigation.state.params.title}`}
   )

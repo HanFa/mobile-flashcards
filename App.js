@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {StyleSheet, Text, View, Platform, SectionList, StatusBar} from 'react-native'
 import {applyMiddleware, createStore} from 'redux'
 import reducers from './reducers'
@@ -17,6 +17,9 @@ import NewDeck from "./components/NewDeck"
 import DeckPage from "./components/DeckPage"
 import NewCard from "./components/NewCard"
 import QuizPage from "./components/QuizPage"
+import {receiveData} from "./actions"
+import {getDecks} from "./utils/api"
+import {setLocalNotification} from "./utils/notifications"
 
 
 const Tabs = createBottomTabNavigator({
@@ -90,15 +93,28 @@ function UdaciStatusBar({backgroundColor, ...props}) {
 
 const TabContainer = createAppContainer(Tabs)
 const StackContainer = createAppContainer(Stacks)
+const store = createStore(reducers, applyMiddleware(thunk))
 
-export default function App() {
-  return (
-    <Provider store={createStore(reducers, applyMiddleware(thunk))}>
-      <UdaciStatusBar backgroundColor={purple} barStyle="light-content"/>
-      <StackContainer/>
-    </Provider>
-  )
+
+export default class App extends Component {
+
+  componentDidMount() {
+    setLocalNotification()
+    getDecks().then((data) => {
+      store.dispatch(receiveData(data))
+    })
+  }
+
+  render() {
+    return (
+      <Provider store={store}>
+        <UdaciStatusBar backgroundColor={purple} barStyle="light-content"/>
+        <StackContainer/>
+      </Provider>
+    )
+  }
 }
+
 
 
 

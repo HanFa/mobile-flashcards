@@ -19,6 +19,7 @@ class NewDeck extends Component {
       this.setState({
         text: ""
       })
+
       Keyboard.dismiss()
       Alert.alert('Deck has been successfully created!')
       this.props.navigation.navigate('DashBoard')

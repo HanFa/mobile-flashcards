@@ -1,8 +1,17 @@
 import {generateUID} from '../utils/utils'
+import {saveDecks} from "../utils/api"
 
 export const ADD_DECK = 'ADD_DECK'
 export const REMOVE_DECK = 'REMOVE_DECK'
 export const ADD_CARD = 'ADD_CARD'
+export const RECEIVE_DATA = 'RECEIVE_DATA'
+
+export function receiveData(data) {
+  return {
+    type: RECEIVE_DATA,
+    data
+  }
+}
 
 export function addDeck(deckTitle) {
   return {
@@ -29,20 +38,22 @@ export function addCard(deckId, question, answer) {
 }
 
 export function handleAddDeck(deckTitle) {
-  return (dispatch) => {
-    return dispatch(addDeck(deckTitle))
+  return (dispatch, getState) => {
+    dispatch(addDeck(deckTitle))
+    return saveDecks(getState())
   }
 }
 
 export function handleRemoveDeck(deckId) {
-  return (dispatch) => {
-    return dispatch(removeDeck(deckId))
+  return (dispatch, getState) => {
+    dispatch(removeDeck(deckId))
+    return saveDecks(getState())
   }
 }
 
 export function handleAddCard(deckId, question, answer) {
-  return (dispatch) => {
-    return dispatch(addCard(deckId, question, answer))
+  return (dispatch, getState) => {
+    dispatch(addCard(deckId, question, answer))
+    return saveDecks(getState())
   }
 }
-

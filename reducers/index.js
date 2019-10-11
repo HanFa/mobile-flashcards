@@ -1,4 +1,4 @@
-import {ADD_CARD, ADD_DECK, REMOVE_DECK} from '../actions/index'
+import {ADD_CARD, ADD_DECK, REMOVE_DECK, RECEIVE_DATA} from '../actions/index'
 
 export default function decks(decks = {}, action) {
   switch (action.type) {
@@ -24,7 +24,9 @@ export default function decks(decks = {}, action) {
           cards: decks[deckId].cards.concat({question: question, answer: answer})
         }
       }
-
+    case RECEIVE_DATA:
+      console.log(action.data)
+      return action.data
     default:
       return decks
   }

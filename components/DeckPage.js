@@ -17,9 +17,10 @@ class DeckPage extends Component {
 
   onDeleteDeck = () => {
     const {dispatch, navigation, id, refresh} = this.props
-    dispatch(handleRemoveDeck(id))
-    refresh()
-    navigation.navigate('DashBoard')
+    dispatch(handleRemoveDeck(id)).then(() => {
+      refresh()
+      navigation.navigate('DashBoard')
+    })
   }
 
 
