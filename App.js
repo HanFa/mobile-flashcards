@@ -16,6 +16,8 @@ import DashBoard from './components/DashBoard'
 import NewDeck from "./components/NewDeck"
 import DeckPage from "./components/DeckPage"
 import NewCard from "./components/NewCard"
+import QuizPage from "./components/QuizPage"
+
 
 const Tabs = createBottomTabNavigator({
     DashBoard: {
@@ -53,27 +55,28 @@ const Tabs = createBottomTabNavigator({
   }
 )
 
+const naviOptions = {
+  headerTintColor: white,
+  headerStyle: {
+    backgroundColor: purple,
+  }
+}
+
 const Stacks = createStackNavigator({
   DashBoard: {
     screen: Tabs,
   },
   DeckPage: {
     screen: DeckPage,
-    navigationOptions: {
-      headerTintColor: white,
-      headerStyle: {
-        backgroundColor: purple,
-      }
-    }
+    navigationOptions: naviOptions
   },
   NewCard: {
     screen: NewCard,
-    navigationOptions: {
-      headerTintColor: white,
-      headerStyle: {
-        backgroundColor: purple,
-      }
-    }
+    navigationOptions: naviOptions
+  },
+  QuizPage: {
+    screen: QuizPage,
+    navigationOptions: naviOptions
   }
 })
 

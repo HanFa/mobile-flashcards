@@ -76,6 +76,7 @@ class NewCard extends Component {
           color={orange}
           onPress={this.onSubmit}
         />
+
       </View>
     )
   }
@@ -85,7 +86,6 @@ const mapStateToProps = (state, {navigation}) => {
   const {id} = navigation.state.params
   return {
     id,
-    navigation,
     deck: state[id]
   }
 }

@@ -7,7 +7,7 @@ import {handleRemoveDeck} from '../actions'
 
 class DeckPage extends Component {
   static navigationOptions = ({navigation}) => (
-    {title: `Deck: ${navigation.state.params.id}`}
+    {title: `Deck for ${navigation.state.params.title}`}
   )
 
   shouldComponentUpdate(nextProps, nextState, nextContext) {
@@ -37,7 +37,7 @@ class DeckPage extends Component {
         <Button
           title="START QUIZ"
           color={orange}
-          onPress={this.onSubmit}
+          onPress={() => this.props.navigation.navigate('QuizPage', {id: id, title: navigation.state.params.title})}
         />
         <Button
           title="DELETE DECK"

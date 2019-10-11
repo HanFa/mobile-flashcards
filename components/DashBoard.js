@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {StyleSheet, Text, View, Platform, ScrollView, Alert, TouchableOpacity} from "react-native"
 import {connect} from 'react-redux'
-import {gray, white} from "../utils/colors"
 import DeckCard from "./DeckCard"
 
 
@@ -15,18 +14,28 @@ class DashBoard extends Component {
     const {decks} = this.props
 
     return (
-      <View style={styles.container}>
-        {
-          Object.entries(decks).length > 0 ?
-            Object.entries(decks).map(([id, deck]) => (
-              <View style={styles.cardContainer} key={id}>
-                <DeckCard deck={deck} onPress={() => {
-                  this.props.navigation.navigate('DeckPage', {id: id, refresh: this.returnToDashBoard})
-                }}/>
-              </View>
-            )) : <Text style={styles.deckTitle}> No deck currently. </Text>
-        }
-      </View>
+      Object.entries(decks).length > 0 ?
+
+        <ScrollView>
+          <View style={styles.container}>
+            {
+              Object.entries(decks).map(([id, deck]) => (
+                <View style={styles.cardContainer} key={id}>
+                  <DeckCard deck={deck} onPress={() => {
+                    this.props.navigation.navigate('DeckPage', {
+                      id: id,
+                      refresh: this.returnToDashBoard,
+                      title: deck.title
+                    })
+                  }}/>
+                </View>
+              ))
+            }
+          </View>
+        </ScrollView> :
+        <View style={styles.container}>
+          <Text style={styles.deckTitle}> No deck currently. </Text>
+        </View>
     )
   }
 }

@@ -14,17 +14,17 @@ class NewDeck extends Component {
   onSubmit = (e) => {
     const {dispatch} = this.props
     const {text} = this.state
-    if (text === "") {
+    if (text !== "") {
+      dispatch(handleAddDeck(text))
+      this.setState({
+        text: ""
+      })
+      Keyboard.dismiss()
+      Alert.alert('Deck has been successfully created!')
+      this.props.navigation.navigate('DashBoard')
+    } else {
       Alert.alert("Deck title cannot be empty!")
-      return
     }
-
-    dispatch(handleAddDeck(text))
-    this.setState({
-      text: ""
-    })
-
-    Keyboard.dismiss()
   }
 
   onChangeText = (text) => {
